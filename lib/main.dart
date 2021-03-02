@@ -25,6 +25,8 @@ class _MyAppState extends State<MyApp> {
   void perhitunganSuhu() {
     setState(() {
       _inputUser = double.parse(inputCont.text);
+      listViewItem[count] = "$_newValue : $_result";
+      count++;
       if (_newValue == "Kelvin")
         _result = _inputUser + 273;
       else
@@ -68,8 +70,6 @@ class _MyAppState extends State<MyApp> {
                       _result = (4 / 5) * _inputUser;
                   });
                   perhitunganSuhu();
-                  listViewItem[count] = "$changeValue : $_result";
-                  count++;
                 },
               ),
               Container(
