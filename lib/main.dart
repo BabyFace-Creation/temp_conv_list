@@ -61,15 +61,7 @@ class _MyAppState extends State<MyApp> {
                   );
                 }).toList(),
                 value: _newValue,
-                onChanged: (String changeValue) {
-                  setState(() {
-                    if (_newValue != changeValue) {
-                      _newValue = changeValue;
-                      _inputUser = double.parse(inputCont.text);
-                      perhitunganSuhu();
-                    }
-                  });
-                },
+                onChanged: changeValue,
               ),
               Container(
                   child: Output(
@@ -77,11 +69,7 @@ class _MyAppState extends State<MyApp> {
               )),
               ConstrainedBox(
                 constraints: const BoxConstraints(minWidth: double.infinity),
-                child: RaisedButton(
-                  child: Text('Konversi'),
-                  color: Colors.blue,
-                  onPressed: perhitunganSuhu,
-                ),
+                child: buildRaisedButton(),
               ),
               Container(
                 margin: EdgeInsets.only(top: 10, bottom: 10),
@@ -96,5 +84,23 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  RaisedButton buildRaisedButton() {
+    return RaisedButton(
+      child: Text('Konversi'),
+      color: Colors.blue,
+      onPressed: perhitunganSuhu,
+    );
+  }
+
+  void changeValue(String changeValue) {
+    setState(() {
+      if (_newValue != changeValue) {
+        _newValue = changeValue;
+        _inputUser = double.parse(inputCont.text);
+        perhitunganSuhu();
+      }
+    });
   }
 }
