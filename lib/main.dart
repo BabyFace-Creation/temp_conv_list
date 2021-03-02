@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Input.dart';
 import 'Output.dart';
+import 'HistoryConvert.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,24 +14,24 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  double input;
   double _result = 0;
   double _inputUser = 0;
-  String _newValue;
-  int count = 0;
-  List<String> listViewItem = List<String>();
+  String _newValue = "Kelvin";
+  int count = 1;
+  List<String> listViewItem = <String>[];
   var listItem = ["Kelvin", "Reamur"];
   final inputCont = TextEditingController();
 
   void perhitunganSuhu() {
     setState(() {
       _inputUser = double.parse(inputCont.text);
-      listViewItem[count] = "$_newValue : $_result";
-      count++;
       if (_newValue == "Kelvin")
-        _result = _inputUser + 273;
+        _result = _inputUser + 273.15;
       else
         _result = (4 / 5) * _inputUser;
+      _result = num.parse(_result.toStringAsFixed(2));
+      listViewItem.add("$count. $_newValue : $_result");
+      count++;
     });
   }
 
@@ -59,17 +60,13 @@ class _MyAppState extends State<MyApp> {
                     child: Text(value),
                   );
                 }).toList(),
-                value: listItem[0],
+                value: _newValue,
                 onChanged: (String changeValue) {
                   setState(() {
                     _newValue = changeValue;
                     _inputUser = double.parse(inputCont.text);
-                    if (_newValue == "Kelvin")
-                      _result = _inputUser + 273;
-                    else
-                      _result = (4 / 5) * _inputUser;
+                    perhitunganSuhu();
                   });
-                  perhitunganSuhu();
                 },
               ),
               Container(
@@ -91,7 +88,7 @@ class _MyAppState extends State<MyApp> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              Expanded(child: Container()),
+              HistoryConvert(listViewItem: listViewItem),
             ],
           ),
         ),
