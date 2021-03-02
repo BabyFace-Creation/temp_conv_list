@@ -63,9 +63,11 @@ class _MyAppState extends State<MyApp> {
                 value: _newValue,
                 onChanged: (String changeValue) {
                   setState(() {
-                    _newValue = changeValue;
-                    _inputUser = double.parse(inputCont.text);
-                    perhitunganSuhu();
+                    if (_newValue != changeValue) {
+                      _newValue = changeValue;
+                      _inputUser = double.parse(inputCont.text);
+                      perhitunganSuhu();
+                    }
                   });
                 },
               ),
